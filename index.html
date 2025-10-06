@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav>
@@ -12,11 +12,274 @@
         <h2>ITF Website</h2>
         <p>Week 14</p>
     </nav>
-        <h2>ITF Simple Bank</h2>
-        <p>Welcome to my first HTML + CSS + JS website</p>
-    Enter number: <input type="number" id="myinput" value="0">
-    <button onclick="add()">+1</button>
-        <h2>Account Overview</h2>
-    <script src=""script.js></script>
+
+  <div class="wrap">
+    <div class="main-card">
+
+      <div class="header-area">
+        <div class="logo">🏦</div>
+        <div class="titleblock">
+          <h1>ITF Simple Bank</h1>
+          <p>Welcome to my first HTML + CSS + JS website!</p>
+        </div>
+        <div style="text-align:right">
+        </div>
+      </div>
+
+      <div class="top-info">
+        <textarea id="topInfo" readonly>
+1. Current account balance: 1000.00, Current cash balance: 1000.00
+
+- รายการล่าสุดจะแสดงที่นี่ (history)
+- Deposit: ย้ายเงินจาก Cash -> Account
+- Withdraw: ย้ายเงินจาก Account -> Cash
+        </textarea>
+      </div>
+
+      <div class="grid">
+        <div>
+          <div class="panel">
+            <h3>Account Overview</h3>
+            <div class="small muted">Account Information</div>
+            <div style="margin-top:8px" class="row">
+              <div class="field">
+                <label>ชื่อผู้ถือบัญชี</label>
+                <input type="text" value="Atip Cheunchobpranee" readonly>
+              </div>
+              <div class="field">
+                <label>Type</label>
+                <input type="text" value="Savings Account" readonly>
+              </div>
+            </div>
+
+            <div class="pills">
+              <div class="pill">Account Balance: <span id="accountBalance" style="float:right; font-weight:800">1000.00</span></div>
+              <div class="pill">Cash Balance: <span id="cashBalance" style="float:right; font-weight:800">1000.00</span></div>
+            </div>
+
+            <hr style="border:none; border-top:1px solid #eef6ff; margin:14px 0">
+
+            <h3>Balance Information</h3>
+            <div class="row" style="margin-top:8px">
+              <div class="field">
+                <label>Account Balance </label>
+                <input id="inputAccount" type="number" min="0" step="0.01" placeholder="เช่น 1500.00">
+              </div>
+              <div class="field">
+                <label>Cash Balance </label>
+                <input id="inputCash" type="number" min="0" step="0.01" placeholder="เช่น 800.00">
+              </div>
+            </div>
+            <div class="controls" style="margin-top:10px">
+              <button class="btn-primary" id="applyBalances">ยืนยันการปรับยอด</button>
+              <div class="small muted">ปุ่มนี้จะตั้งค่า Account และ Cash ตามที่กรอก</div>
+            </div>
+
+            <hr style="border:none; border-top:1px solid #eef6ff; margin:14px 10px">
+
+            <h3>Bank Operation</h3>
+            <div style="margin-top:8px" class="row">
+              <div class="field">
+                <label>เลือกการทำรายการ</label>
+                <select id="opSelect">
+                  <option value="deposit">Deposit</option>
+                  <option value="withdraw">Withdraw</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>จำนวนเงิน</label>
+                <input id="amount" type="number" min="0" step="0.01" placeholder="เช่น 200.00">
+              </div>
+            </div>
+            <div class="controls" style="margin-top:12px">
+              <button class="btn-primary" id="proceed">Proceed</button>
+              <button class="btn-dep" id="quickDeposit">Deposit</button>
+              <button class="btn-wd" id="quickWithdraw">Withdraw</button>
+              <button class="btn-ghost" id="clearAmount">ล้าง</button>
+            </div>
+
+            <p class="small muted" style="margin-top:10px">
+              * Deposit = Cash → Account, Withdraw = Account → Cash. ระบบจะไม่อนุญาตให้ยอดติดลบ
+            </p>
+
+            <hr style="border:none; border-top:1px solid #eef6ff; margin:14px 10px">
+
+            <h3>Transaction History</h3>
+            <textarea id="history" readonly style="width:100%; min-height:120px; border-radius:8px; padding:10px; margin-top:8px; border:1px solid #dbe7f7;"></textarea>
+            <div class="controls" style="margin-top:8px">
+              <button class="btn-ghost" id="clearHistory">ล้างประวัติ</button>
+              <div class="small muted">ประวัติถูกเก็บในเบราว์เซอร์ (localStorage)</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="right-card panel">
+          <h3>Financial Tools</h3>
+          <div class="small muted">Currency Converter</div>
+
+          <div style="margin-top:10px">
+            <label class="small">จำนวน</label>
+            <input id="curAmount" type="number" step="0.01" min="0" placeholder="เช่น 100.00">
+          </div>
+          <div style="margin-top:10px">
+            <label class="small">อัตราแลกเปลี่ยน (1 USD = ? THB)</label>
+            <input id="curRate" type="number" step="0.0001" min="0" value="36.00">
+          </div>
+
+          <div style="margin-top:10px">
+            <label class="small">จาก</label>
+            <select id="fromCur">
+              <option value="USD">USD</option>
+              <option value="THB">THB</option>
+            </select>
+          </div>
+          <div style="margin-top:10px">
+            <label class="small">เป็น</label>
+            <select id="toCur">
+              <option value="THB">THB</option>
+              <option value="USD">USD</option>
+            </select>
+          </div>
+
+          <div class="controls" style="margin-top:12px">
+            <button class="btn-primary" id="convertBtn">Convert</button>
+            <button class="btn-ghost" id="swapBtn">สลับ</button>
+          </div>
+
+          <div style="margin-top:12px" class="pill" id="curResult">ผลลัพธ์: -</div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let account = 1000.00;
+    let cash = 1000.00;
+    const fmt = (n)=> Number(n).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2});
+    const now = ()=> new Date().toLocaleString();
+
+    const topInfo = document.getElementById('topInfo');
+    const accEl = document.getElementById('accountBalance');
+    const cashEl = document.getElementById('cashBalance');
+    const historyEl = document.getElementById('history');
+
+    const inputAccount = document.getElementById('inputAccount');
+    const inputCash = document.getElementById('inputCash');
+    const applyBalances = document.getElementById('applyBalances');
+
+    const opSelect = document.getElementById('opSelect');
+    const amount = document.getElementById('amount');
+    const proceed = document.getElementById('proceed');
+    const quickDeposit = document.getElementById('quickDeposit');
+    const quickWithdraw = document.getElementById('quickWithdraw');
+    const clearAmount = document.getElementById('clearAmount');
+
+    const clearHistory = document.getElementById('clearHistory');
+
+    const curAmount = document.getElementById('curAmount');
+    const curRate = document.getElementById('curRate');
+    const fromCur = document.getElementById('fromCur');
+    const toCur = document.getElementById('toCur');
+    const convertBtn = document.getElementById('convertBtn');
+    const swapBtn = document.getElementById('swapBtn');
+    const curResult = document.getElementById('curResult');
+
+    function mustNumber(v){
+      if(v==="" || v===null || isNaN(+v)) return null;
+      return Math.max(0, +(+v).toFixed(2));
+    }
+    function refreshUI(){
+      accEl.textContent = fmt(account);
+      cashEl.textContent = fmt(cash);
+      const firstLine = `1. Current account balance: ${fmt(account)}, Current cash balance: ${fmt(cash)}`;
+      const existing = historyEl.value ? historyEl.value : '';
+      topInfo.value = firstLine + "\n\n" + "- ประวัติการทำรายการจะแสดงในช่องด้านล่าง (Transaction History)";
+    }
+
+    function saveHistory(){
+      localStorage.setItem('itf_bank_history', historyEl.value);
+    }
+    function loadHistory(){
+      const h = localStorage.getItem('itf_bank_history');
+      if(h) historyEl.value = h;
+      else historyEl.value = '';
+    }
+    function log(msg){
+      const text = `[${now()}] ${msg}\n` + historyEl.value;
+      historyEl.value = text;
+      saveHistory();
+    }
+
+    loadHistory();
+    refreshUI();
+    log(`เริ่มต้นระบบ | Account = ${fmt(account)} THB, Cash = ${fmt(cash)} THB`);
+
+    applyBalances.addEventListener('click', ()=>{
+      const a = mustNumber(inputAccount.value);
+      const c = mustNumber(inputCash.value);
+      if(a===null || c===null){
+        alert('กรุณาใส่ตัวเลขทั้งสองช่อง');
+        return;
+      }
+      account = a; cash = c;
+      refreshUI();
+      log(`ตั้งค่าใหม่ | Account → ${fmt(a)}, Cash → ${fmt(c)}`);
+      inputAccount.value = ""; inputCash.value = "";
+    });
+
+    function doDeposit(amt){
+      if(amt<=0){ alert('จำนวนเงินต้องมากกว่า 0'); return; }
+      if(cash < amt){ alert('เงินสดไม่พอสำหรับฝาก'); return; }
+      cash -= amt; account += amt; refreshUI();
+      log(`Deposit ${fmt(amt)} THB | Cash → ${fmt(cash)}, Account → ${fmt(account)}`);
+    }
+    function doWithdraw(amt){
+      if(amt<=0){ alert('จำนวนเงินต้องมากกว่า 0'); return; }
+      if(account < amt){ alert('ยอดบัญชีไม่พอสำหรับถอน'); return; }
+      account -= amt; cash += amt; refreshUI();
+      log(`Withdraw ${fmt(amt)} THB | Account → ${fmt(account)}, Cash → ${fmt(cash)}`);
+    }
+
+    proceed.addEventListener('click', ()=>{
+      const amt = mustNumber(amount.value);
+      if(amt===null){ alert('กรุณากรอกจำนวนเงินเป็นตัวเลข'); return; }
+      const op = opSelect.value;
+      op === 'deposit' ? doDeposit(amt) : doWithdraw(amt);
+    });
+    quickDeposit.addEventListener('click', ()=>{
+      const amt = mustNumber(amount.value);
+      if(amt===null){ alert('กรุณากรอกจำนวนเงินเป็นตัวเลข'); return; }
+      doDeposit(amt);
+    });
+    quickWithdraw.addEventListener('click', ()=>{
+      const amt = mustNumber(amount.value);
+      if(amt===null){ alert('กรุณากรอกจำนวนเงินเป็นตัวเลข'); return; }
+      doWithdraw(amt);
+    });
+    clearAmount.addEventListener('click', ()=> amount.value = '');
+
+    clearHistory.addEventListener('click', ()=>{
+      if(confirm('ลบประวัติทั้งหมดหรือไม่?')){
+        historyEl.value = ''; saveHistory(); alert('ล้างประวัติเรียบร้อย');
+      }
+    });
+
+    function convert(){
+      const amt = mustNumber(curAmount.value);
+      const rate = mustNumber(curRate.value);
+      if(amt===null || rate===null || rate===0){
+        alert('กรุณากรอกจำนวนเงินและอัตราแลกเปลี่ยนให้ถูกต้อง'); return;
+      }
+      let result=0;
+      if(fromCur.value==='USD' && toCur.value==='THB') result = amt * rate;
+      else if(fromCur.value==='THB' && toCur.value==='USD') result = amt / rate;
+      else result = amt;
+      curResult.textContent = `ผลลัพธ์: ${fmt(result)} ${toCur.value}`;
+    }
+    convertBtn.addEventListener('click', convert);
+    swapBtn.addEventListener('click', ()=>{
+      const a = fromCur.value; fromCur.value = toCur.value; toCur.value = a; convert();
+    });
+  </script>
 </body>
 </html>
